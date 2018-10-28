@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+	<meta charset="UTF-8"></meta>
+	<title>Online Library</title>
+	<link th:src="@{/css/style.css}" href="/css/style.css" rel="stylesheet" type="text/css"/>
+	<link th:src="@{/css/buttons.css}" href="/css/buttons.css" rel="stylesheet" type="text/css"/>
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+</head>
+
+<body>
+	<div id="container">
+		<div th:replace="fragments :: panel">
+		</div>
+		<div th:replace="fragments :: leftmenu">
+		</div>
+		<div id="content">	
+		<div th:if="${correctMessage!= null}"><div class="correctMessage" th:text="${correctMessage}"></div></div>
+		<div th:if="${invalidMessage!= null}"><div class="invalidMessage" th:text="${invalidMessage}"></div></div>
+			<h1>Add book form</h1>
+			<form action="#" method="post" th:action="@{/addbook}" th:object="${book}">
+				<div class="errors" th:errors="*{title}"></div>
+				<input th:field="*{title}" placeholder="Title" /><br />
+				<div class="errors" th:errors="*{author}"></div>
+				<input th:field="*{author}" placeholder="Author" /><br />
+				<div class="errors" th:errors="*{type}"></div>
+				<input th:field="*{type}" placeholder="Type" /><br />
+				<div class="errors" th:errors="*{count}"></div>
+				<input th:field="*{count}" placeholder="count" /><br />
+				<div class="errors" th:errors="*{isbn}"></div>
+				<input th:field="*{isbn}" placeholder="ISBN" /><br />
+				<input type="submit" value="Add book" />
+			</form>
+		</div>
+		<div style="clear:both"></div>
+		<div th:replace="fragments :: footer"></div>
+	</div>
+</body>
+</html>

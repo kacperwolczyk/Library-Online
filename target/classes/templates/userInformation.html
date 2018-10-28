@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+	<meta charset="UTF-8"></meta>
+	<title>Online Library</title>
+	<link th:src="@{/css/style.css}" href="/css/style.css" rel="stylesheet" type="text/css"/>
+	<link th:src="@{/css/buttons.css}" href="/css/buttons.css" rel="stylesheet" type="text/css"/>
+	<link th:src="@{/css/tables.css}" href="/css/tables.css" rel="stylesheet" type="text/css"/>
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+</head>
+
+<body>
+	<div id="container">
+		<div th:replace="fragments :: panel">
+		</div>
+		<div th:replace="fragments :: leftmenu">
+		</div>
+		<div id="content">	
+		<div th:if="${correctMessage!= null}"><div class="correctMessage" th:text="${correctMessage}"></div></div>
+		<div th:if="${invalidMessage!= null}"><div class="invalidMessage" th:text="${invalidMessage}"></div></div>
+   			<h3>Find user by email</h3>
+   			<form th:action="@{/searchuser}" method="post">
+   				<input type="text" name="userEmail" placeholder="Email"/><br/>
+    			<input type="submit" value="Search" />	
+    		</form>	
+    		<div th:if="not ${user==null}">
+    		<div id="userlogo"><img th:src="@{/img/user.png}"/></div>
+			<div id="userinfo">
+				<div id="userinfo1">
+					<div>Firstname:</div>
+					<div>Lastname:</div>
+					<div>PESEL:</div>
+					<div>Email:</div>
+					<div style="font-weight:bold">STATUS:</div>
+					<div>Debt:</div>
+				</div>
+				<div id="userinfo1">
+					<div th:text="${user.firstName}"></div>
+					<div th:text="${user.lastName}"></div>
+					<div th:text="${user.pesel}"></div>
+					<div th:text="${user.email}"></div>
+					<div style="font-weight:bold; color:red;" th:text="${user.status}"></div>
+					<div th:text="${user.hireCharge}">PLN</div>
+				</div>
+				
+				<div id="userinfo2">
+				<div>
+					<form th:action="@{/enableaccount}" method="post">
+				   		<input type="hidden" name="id" th:value="${user.id}" ></input>
+   						<input type="submit" class="userstatsbutton" value="Enable account" />
+   					</form>	
+   				</div>	
+   				<div>
+					<form th:action="@{/disableaccount}" method="post">
+				   		<input type="hidden" name="id" th:value="${user.id}" ></input>
+   						<input type="submit" style="background-color: #99001A;" class="userstatsbutton" value="Disable account" />
+   					</form>	
+   				</div>	
+				<div style="clear:both"></div>
+				</div>	
+				<div style="clear:both"></div>
+			</div>
+			<div style="clear:both"></div>
+    		</div>
+    		<div th:if="${userReservationList != null}">
+    			<div th:if="not ${userReservationList.isEmpty()}">
+    			<h1>List of reserved books:</h1>
+        			<table>
+            			<tr>
+               		 		<th>Title</th>
+               		 		<th>Author</th>
+               		 		<th>Expire at</th>
+            			</tr>
+            			<tr th:each="reservation: ${userReservationList}">	
+            				<form th:action="@{/addhire}" method="post">
+                				<td th:text="${reservation.book.title}"></td>
+                				<td th:text="${reservation.book.author}"></td>
+                				<td th:text="${reservation.endDate}"></td>
+                				<td> 	
+    								<input type="hidden" name="id" th:value="${reservation.id}" ></input>
+   									<input type="submit" class="button" value="Lend" />	
+								</td>  
+							</form>				
+            			</tr>
+        			</table> 
+    			</div>
+    		</div>
+    		<div th:if="${userHireList != null}">
+    			<div th:if="not ${userHireList.isEmpty()}">
+    			<h1>List of lent books:</h1>
+        			<table>
+            			<tr>
+             	  			<th>Title</th>
+            	    		<th>Author</th>
+            	    		<th>Expire at</th>
+           	    			<th>Status</th>
+           	    			<th>Debt:</th>
+         	   			</tr>
+          				<tr th:each="hire: ${userHireList}">
+            				<form th:action="@{/deletehire}" method="post">
+                				<td th:text="${hire.book.title}"></td>
+                				<td th:text="${hire.book.author}"></td>
+                				<td th:text="${hire.expDate}"></td>
+               					<td th:text="${hire.status}"></td>
+               					<td th:text="${hire.charge}">PLN</td>
+               					<td> 	
+    								<input type="hidden" name="id" th:value="${hire.id}" ></input>
+   									<input type="submit" class="button" value="Return" />	
+								</td>  
+							</form>	  
+            			</tr>
+        			</table> 
+   			 	</div>	
+   			 </div>
+   			 
+   			 <div th:if="${userHistory != null}">
+   				<div th:if="not ${userHistory.isEmpty()}">
+    		 	<h1>History:</h1>
+        			<table>
+            			<tr>
+                	 		<th>Title</th>
+                	 		<th>Author</th>
+                	 		<th>Started</th>
+                			<th>Returned</th>	
+            			</tr>
+            			<tr th:each="hire: ${userHistory}">
+                			<td th:text="${hire.book.title}"></td>
+                			<td th:text="${hire.book.author}"></td>
+                			<td th:text="${hire.addDate}"></td>
+                			<td th:text="${hire.endDate}"></td>
+            			</tr>
+        			</table> 
+    			</div>
+    		</div>
+    			 
+		</div>
+		<div style="clear:both"></div>		
+		<div th:replace="fragments :: footer"></div>
+	</div>
+</body>
+</html>

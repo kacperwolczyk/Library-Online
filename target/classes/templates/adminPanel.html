@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+	<meta charset="UTF-8"></meta>
+	<title>Online Library</title>
+	<link th:src="@{/css/style.css}" href="/css/style.css" rel="stylesheet" type="text/css"/>
+	<link th:src="@{/css/buttons.css}" href="/css/buttons.css" rel="stylesheet" type="text/css"/>
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+</head>
+
+<body>
+	<div id="container">
+		<div th:replace="fragments :: panel">
+		</div>
+		<div th:replace="fragments :: leftmenu">
+		</div>
+		<div id="content">	
+			<div id="userlogo"><img th:src="@{/img/user.png}"/></div>
+			<div id="userinfo">
+				<div id="userinfo1">
+					<div>Firstname:</div><div>Lastname:</div><div>PESEL:</div><div>Email:</div>
+				</div>
+				<div id="userinfo1">
+					<div th:text="${admin.firstName}"></div>
+					<div th:text="${admin.lastName}"></div>
+					<div th:text="${admin.pesel}"></div>
+					<div th:text="${admin.email}"></div>
+				</div>
+				<div style="clear:both"></div>
+			</div>
+			
+			<div id="userinfo2">
+				
+				<a th:href="@{/adminpanel/bookform}"><div class="admincontrols">Add book</div></a>	
+   				<a th:href="@{/adminpanel/searchuser}"><div class="admincontrols">Search user</div></a>
+				<div style="clear:both"></div>
+			</div>
+			<div style="clear:both"></div>
+		</div>
+		<div style="clear:both"></div>		
+		<div th:replace="fragments :: footer"></div>
+	</div>
+</body>
+</html>
