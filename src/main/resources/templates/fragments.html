@@ -1,0 +1,42 @@
+<meta charset="UTF-8"></meta>
+
+
+<div id="panel" th:fragment="panel">
+	<a th:href="@{/}"><div id="panelbox1">Online Library</div></a>
+	<div sec:authorize="isAnonymous()">
+		<a th:href="@{/register}"><div class="panelbox2">Sign Up</div></a>
+		<a th:href="@{/loginform}"><div class="panelbox2">Login</div></a>
+	</div>
+	<div sec:authorize="isAuthenticated()">
+		<div sec:authorize="hasRole('ROLE_ADMIN')">
+			<a th:href="@{/adminpanel}"><div class="panelbox2">My Account</div></a>
+		</div>
+		<div sec:authorize="hasRole('ROLE_USER')">
+  			<a th:href="@{/userpanel}"><div class="panelbox2">My Account</div></a>
+		</div>
+    	<div style="float:left">
+    		<form th:action="@{/logout}" method="post">
+				<input type="submit" class="logoutbutton" value="Logout" />
+			</form>
+		</div>
+	</div>
+	<div style="clear:both"></div>
+</div>
+
+<div id="leftmenu" th:fragment="leftmenu">
+	<a th:href="@{/}"><div class="menubox">News</div></a>
+	<a th:href="@{/booklist}"><div class="menubox">List of books</div></a>
+	<a th:href="@{/}"><div class="menubox">Rules</div></a>
+	<a th:href="@{/}"><div class="menubox">Contact</div></a>
+	<a th:href="@{/}"><div class="menubox">Write to us!</div></a>
+	<a th:href="@{/}"><div class="menubox" style="padding-top: 5px;">The most popular!</div></a>
+	<a th:href="@{/}"><div class="menubox" style="padding-top: 5px;">The most active!</div></a>
+</div>
+		
+<div id="content">	
+</div>
+		
+<div style="clear:both"></div>
+
+<div id="footer" th:fragment="footer">Copyright &copy Online Library created by Kacper Wolczyk</div>
+

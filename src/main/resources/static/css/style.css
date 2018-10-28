@@ -1,0 +1,209 @@
+body
+{
+	font-family: 'Source Sans Pro', sans-serif;
+	background-color: #363937;
+	margin: 0px;
+	font-size: 20px;
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+.invalidMessage
+{
+	margin-top:20px;
+	width: 706px;
+	min-heigth: 40px;
+	font-weight: bold;
+	border: 2px solid #A90F0F;
+	background-color: #FFA7A7;
+	color: #A90F0F;
+	padding: 5px;
+}
+
+.correctMessage
+{
+	margin-top:20px;
+	width: 706px;
+	min-heigth: 40px;
+	font-weight: bold;
+	border: 2px solid #14771E;
+	background-color: #6EFF6E;
+	color: #14771E;
+	padding: 5px;
+}
+
+.errors
+{
+	font-size: 12px;
+	color: red;
+	font-weight: bold;
+}
+
+#container
+{
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#panel
+{
+	background-color: #56C787;
+	min-height: 60px;
+	border: 2px solid #000000;
+}
+
+#panelbox1
+{
+	color: #000000;
+	width: 196px;
+	float: left;
+	margin-right: 460px;
+	text-align: center;
+	height: 40px;
+	padding-top: 20px;
+	font-weight: bold;
+}
+
+#panelbox1:hover
+{
+	background-color: #2A5F41;
+	color: #ffffff;
+	cursor: pointer;
+	border: 2px solid #ffffff;
+	height: 36px;
+	width: 192px;
+}
+
+.panelbox2
+{
+	font-weight: bold;
+	height: 40px;
+	padding-top: 20px;
+	color: #000000;
+	width: 130px;
+	float: left;
+	padding-right: 20px;
+	padding-left: 20px;
+	text-align: center;
+}
+
+.panelbox2:hover
+{
+	background-color: #2A5F41;
+	color: #ffffff;
+	cursor: pointer;
+	border: 2px solid #ffffff;
+	height: 36px;
+	width: 126px;
+}
+
+
+#leftmenu
+{
+	margin-top: 30px;
+	margin-bottom: 30px;
+	float: left;
+	width: 200px;
+}
+
+.menubox
+{
+	min-height: 40px;
+	color: #56C787;
+	text-align: center;
+	border: 2px solid #56C787;
+	border-bottom: 1px solid #56C787;
+	padding-top: 15px;
+}
+
+.menubox:hover
+{
+	background-color: #2A5F41;
+	color: #ffffff;
+	cursor: pointer;
+	border: 2px solid #ffffff;
+	border-bottom: 1px solid #ffffff;
+}
+
+#content
+{
+	float: left;
+	background-color: #C2C6C4;
+	width: 716px;
+	min-height: 334px;
+	padding-right: 20px;
+	padding-left: 20px;
+	padding-bottom: 20px;
+	margin: 20px;
+	margin-top: 50px;
+	font-size: 18px;
+	border: 2px solid #000000;
+}
+
+#userlogo
+{
+	float:left;
+	padding: 20px;
+	margin-right:20px;
+}
+
+#userinfo
+{
+	margin-top: 20px;
+	height: 140px;
+	padding: 20px;
+	float:left;
+}
+
+#userinfo1
+{
+	margin-top: 20px;
+	width:100px;
+	float: left;
+}
+
+#userinfo2
+{
+	margin-top: 30px;
+	margin-left: 20px;
+	width:100px;
+	float: left;
+}
+
+.admincontrols
+{
+	width: 170px;
+	height: 50px;
+	margin-top:10px;
+	background-color: #56C787;
+	text-align: center;
+	font-weight: bold;
+	color: #000000;
+	padding-top: 20px;
+	border: 2px solid #000000;
+}
+
+.admincontrols:hover
+{
+	border: 2px solid #ffffff;
+	cursor: pointer;
+	background-color: #2A5F41;
+	color: #ffffff;
+}
+
+#footer
+{
+	border: 2px solid #56C787;
+	background-color: #000000;
+	min-height: 30px;
+	color: #56C787;
+	text-align: center;
+	padding-top: 10px;
+}

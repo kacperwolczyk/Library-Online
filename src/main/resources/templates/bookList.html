@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<head>
+	<meta charset="UTF-8"></meta>
+	<title>Online Library</title>
+	<link th:src="@{/css/style.css}" href="/css/style.css" rel="stylesheet" type="text/css"/>
+	<link th:src="@{/css/buttons.css}" href="/css/buttons.css" rel="stylesheet" type="text/css"/>
+	<link th:src="@{/css/tables.css}" href="/css/tables.css" rel="stylesheet" type="text/css"/>
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+</head>
+
+<body>
+	<div id="container">
+		<div th:replace="fragments :: panel">
+		</div>
+		<div th:replace="fragments :: leftmenu">
+		</div>
+		<div id="content">	
+		<div th:if="${correctMessage!= null}"><div class="correctMessage" th:text="${correctMessage}"></div></div>
+		<div th:if="${invalidMessage!= null}"><div class="invalidMessage" th:text="${invalidMessage}"></div></div>
+			<h3>Select the search parameter</h3>
+				<form action="#" method="post" th:action="@{/booklist}">
+					<label>Title</label>
+					<span><input type="radio" name="argument" th:value="bookstitle" /></span>
+					
+					<label>Author</label>
+					<span><input type="radio" name="argument" th:value="booksauthor" /></span>						
+					
+					<label>Type</label>
+					<span><input type="radio" name="argument" th:value="bookstype" /></span>
+
+					<p>
+						<label>Value of parameter</label>
+						<span><input type="text" name="argumentValue"></span>
+						<input type="submit" value="Search">
+					</p>
+				</form>
+		
+			<div th:if="${bookList != null}">
+			<div th:if="not ${bookList.isEmpty()}">
+        		<table>
+            	<tr>
+              	 	<th>Title</th>
+               		<th>Author</th>
+               		<th>Type</th>
+               		<th>Avaible</th>
+           	 	</tr>
+           	 	<tr th:each="book: ${bookList}">
+            		<form th:action="@{/addreservation}" method="post">
+               			<td th:text="${book.title}"></td>
+               			<td th:text="${book.author}"></td>
+               			<td th:text="${book.type}"></td>
+               			<td th:text="${book.freeCount}"></td>
+ 						<div sec:authorize="isAuthenticated()">
+ 							<td> 
+    							<input type="hidden" name="id" th:value="${book.id}" ></input>
+   								<input type="submit" class="button" value="Reservation" />		
+							</td>  
+						</div>
+					</form>	
+            	</tr>
+    			</table> 
+    		</div>
+    		</div>
+    	</div>
+		<div style="clear:both"></div>
+		<div th:replace="fragments :: footer"></div>
+	</div>
+</body>
+</html>
