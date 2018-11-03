@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import library.model.*;
 import library.service.*;
 
@@ -98,17 +99,23 @@ public class UserController {
 		return "userInformation";
 	}
 	
+	@GetMapping("/adminpanel/searchuser/{id}")
+	public String searchUserById(@PathVariable(name="id") Long id, Model model)
+	{
+		User user = userService.findUserById(id);
+		model.addAttribute("user", user);
+		model.addAttribute("userReservationList", reservationService.getByUser(user));
+		model.addAttribute("userHireList", hireService.getByUser(user));
+		model.addAttribute("userHistory", hireService.getHireHistory(user));
+		return "userInformation";
+	}
+	
 	@PostMapping("/searchuser")
 	public String adminPanel(@RequestParam(name="userEmail", required=false) String userEmail, RedirectAttributes redirectAttributes)
 	{
 		User user = userService.findUserByEmail(userEmail);
-		redirectAttributes.addFlashAttribute("user", user);
-		redirectAttributes.addFlashAttribute("userReservationList", reservationService.getByUser(user));
-		redirectAttributes.addFlashAttribute("userHireList", hireService.getByUser(user));
-		redirectAttributes.addFlashAttribute("userHistory", hireService.getHireHistory(user));
-		
 		Long id = user.getId();
-		return "redirect:adminpanel/searchuser?user_id="+id;
+		return "redirect:adminpanel/searchuser/"+id;
 	}
 	
 	@PostMapping("/enableaccount")
@@ -119,7 +126,7 @@ public class UserController {
 			redirectAttributes.addFlashAttribute("correctMessage", "Account is active now!");
 		else
 			redirectAttributes.addFlashAttribute("invalidMessage", "Account can't be active because user still has debt");
-		return "redirect:/adminpanel/searchuser";
+		return "redirect:adminpanel/searchuser/"+id;
 	}
 	
 	@PostMapping("/disableaccount")
@@ -130,7 +137,7 @@ public class UserController {
 			redirectAttributes.addFlashAttribute("correctMessage", "Account is unactive now!");
 		else
 			redirectAttributes.addFlashAttribute("invalidMessage", "Account is unactive already!");
-		return "redirect:/adminpanel/searchuser";
+		return "redirect:adminpanel/searchuser/"+id;
 	}
 	
 }

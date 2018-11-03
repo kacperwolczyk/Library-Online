@@ -31,23 +31,25 @@ public class HireController {
 	public String addHire(@RequestParam(name="id", required=false) Long ReservationId, RedirectAttributes redirectAttributes)
 	{
 		Reservation reservation = reservationService.getReservation(ReservationId);
+		Long userId = reservation.getUser().getId();
 		Hire hire = new Hire(reservation.getUser(), reservation.getBook());
 		if(hireService.addHire(hire, reservation))
 			redirectAttributes.addFlashAttribute("correctMessage", "You lent book successfully!");
 		else
 			redirectAttributes.addFlashAttribute("invalidMessage", "You can't lend books for unactive users!");
-		return "redirect:adminpanel/searchuser";
+		return "redirect:adminpanel/searchuser/"+userId;
 	}
 	
 	@PostMapping("/deletehire")
 	public String deleteHire(@RequestParam(name="id") Long HireId, RedirectAttributes redirectAttributes)
 	{
 		Hire hire = hireService.getById(HireId);
+		Long userId = hire.getUser().getId();
 		String status = hire.getStatus();
 		if(status.equals("active") || status.equals("extended") || status.equals("expired"))	
 			hireService.unactiveHire(hire);
 		redirectAttributes.addFlashAttribute("correctMessage", "Book is returned correctly");
-		return "redirect:adminpanel/searchuser";
+		return "redirect:adminpanel/searchuser/"+userId;
 	}
 	
 	@PostMapping("/updatehire")
